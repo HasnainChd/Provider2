@@ -9,11 +9,11 @@ class CounterDisplayScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
+        title: const Center(
           child: Text('Counter App'),
         ),
       ),
-      body:  Center(
+      body:   Center(
         child:  Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -21,7 +21,9 @@ class CounterDisplayScreen extends StatelessWidget {
               'You have Pressed the button :',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-             Text("0 times",style: const TextStyle(fontSize: 35),)
+             Consumer<CounterProvider>(builder:(context,value, child){
+               return Text("${value.count} times",style: TextStyle(fontSize: 35),);
+             })
           ],
         ),
       ),
@@ -32,6 +34,7 @@ class CounterDisplayScreen extends StatelessWidget {
             backgroundColor: Colors.red,
             foregroundColor: Colors.white,
             onPressed: (){
+              context.read<CounterProvider>().decrement();
           },child: const Icon(Icons.remove),),
 
           const SizedBox(width: 10,),
@@ -40,6 +43,7 @@ class CounterDisplayScreen extends StatelessWidget {
             backgroundColor: Colors.green,
             foregroundColor: Colors.white,
             onPressed: (){
+              context.read<CounterProvider>().increment();
           },child: const Icon(Icons.add),)
 
         ],
